@@ -6,9 +6,6 @@
 // Sets default values
 AMyActor::AMyActor()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -16,33 +13,27 @@ void AMyActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	int MinValue = 1;
-	int MaxValue = 45;
-
-	int TotalNumerCount = 6;
-
-	TArray<int> SelectedNumbers;
-
-	for (int i = 0; i < TotalNumerCount; ++i)
-	{
-		int SelectedNumber = 0;
-
-		do
-		{
-			SelectedNumber = FMath::RandRange(MinValue, MaxValue);
-		} 
-		while (SelectedNumbers.Contains(SelectedNumber));
-
-		SelectedNumbers.Add(SelectedNumber);
-	}
-
-	UE_LOG(LogTemp, Log, TEXT("Lotto Numbers: %d, %d, %d, %d, %d, %d"), SelectedNumbers[0], SelectedNumbers[1], SelectedNumbers[2], SelectedNumbers[3], SelectedNumbers[4], SelectedNumbers[5]);
+	// 필수 기능 구현
+	FVector2D Position(0, 0);
+	Move(Position);
 }
-
-// Called every frame
-void AMyActor::Tick(float DeltaTime)
+	
+void AMyActor::Move(FVector2D& OutPosition)
 {
-	Super::Tick(DeltaTime);
+	int TotalMoveCount = 10;
 
+	for (int i = 0; i < TotalMoveCount; ++i)
+	{
+		OutPosition.X += Step();
+		OutPosition.Y += Step();
+
+		UE_LOG(LogTemp, Warning, TEXT("Current Position : %s"), *OutPosition.ToString());
+	}
 }
+
+int AMyActor::Step()
+{
+	return FMath::RandRange(0, 1);
+}
+
 
