@@ -21,6 +21,17 @@ protected:
 
 private:
 
-	void Move(FVector2D& OutPosition);
+	void Move();
 	int Step();
+
+	float Distance(const FVector2D& First, const FVector2D& Second);
+
+	int CreateEvent();
+
+private:
+
+	FVector2D Start;
+	int EvCnt;
+	int TotDist;
 };
+
